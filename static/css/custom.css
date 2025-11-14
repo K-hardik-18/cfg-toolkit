@@ -1,0 +1,275 @@
+/* ================================
+   GLOBAL RESET & BASE STYLES
+   ================================ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background-color: #f8fafc; /* soft gray */
+    color: #1e293b; /* slate-800 */
+}
+
+::selection {
+    background: #c7d2fe;     /* indigo-200 */
+    color: #1e1b4b;
+}
+
+
+/* ================================
+   SCROLLBAR
+   ================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e2e8f0; /* gray-200 */
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8; /* slate-400 */
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* slate-500 */
+}
+
+
+/* ================================
+   INPUTS & BUTTONS
+   ================================ */
+
+input, textarea {
+    border-radius: 0.7rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    outline: none;
+    transition: 0.15s ease;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    border-color: #6366f1;        /* indigo-500 */
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+
+/* Button style for ALL primary CTA buttons */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 0.8rem;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* Soft hover scale buttons */
+.btn-glow {
+    background: linear-gradient(to right, #4f46e5, #6366f1);
+    color: white;
+    padding: 0.7rem 1.3rem;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.25);
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99,102,241,0.33);
+}
+
+
+/* ================================
+   CARD / SECTION STYLING
+   ================================ */
+
+.card {
+    background: white;
+    border-radius: 1.3rem;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+
+
+/* ================================
+   BADGES / TAGS
+   ================================ */
+
+.badge {
+    background: #e0e7ff;     /* indigo-100 */
+    color: #4338ca;          /* indigo-700 */
+    padding: 0.25rem 0.7rem;
+    border-radius: 0.6rem;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ================================
+   ALERT MESSAGES
+   ================================ */
+
+.alert {
+    padding: 0.9rem 1rem;
+    border-radius: 0.7rem;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    border: 1px solid transparent;
+}
+
+.alert-error {
+    background: #fee2e2;     /* red-100 */
+    color: #b91c1c;          /* red-700 */
+    border-color: #fecaca;   /* red-200 */
+}
+
+.alert-success {
+    background: #dcfce7;     /* green-100 */
+    color: #166534;          /* green-700 */
+    border-color: #bbf7d0;   /* green-200 */
+}
+
+
+/* ================================
+   PARSE TREE STYLING (D3)
+   ================================ */
+
+.node--internal circle {
+    fill: #eef2ff;           /* indigo-50 */
+    stroke: #4f46e5;         /* indigo-600 */
+    stroke-width: 2px;
+}
+
+.node--internal text {
+    fill: #312e81;           /* indigo-900 */
+}
+
+.node--leaf circle {
+    fill: #ecfeff;           /* cyan-50 */
+    stroke: #0891b2;         /* cyan-700 */
+    stroke-width: 2px;
+}
+
+.node--leaf text {
+    fill: #155e75;           /* cyan-900 */
+}
+
+.link {
+    fill: none;
+    stroke: #9ca3af;         /* slate-400 */
+    stroke-width: 2px;
+}
+
+
+/* Centering label text outline */
+.node text {
+    paint-order: stroke;
+    stroke: #ffffff;
+    stroke-width: 3px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+/* ================================
+   MODAL (Parse Tree Fullscreen)
+   ================================ */
+
+#tree-modal {
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.55);
+}
+
+#tree-modal .modal-content {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+}
+
+#modal-svg-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+}
+
+#modal-svg-container:active {
+    cursor: grabbing;
+}
+
+
+/* Buttons inside modal */
+.modal-btn {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-radius: 0.6rem;
+    padding: 0.5rem 1rem;
+    transition: 0.2s;
+}
+
+.modal-btn:hover {
+    background: #cbd5e1;
+}
+
+
+/* ================================
+   PRODUCTION ROW STYLE
+   ================================ */
+
+.production-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.delete-row-btn svg {
+    transition: 0.15s;
+}
+
+.delete-row-btn:hover svg {
+    stroke: #dc2626; /* red-600 */
+}
+
+
+/* ================================
+   OUTPUT BOXES (Generator & Validator)
+   ================================ */
+
+.output-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.9rem;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.output-box pre {
+    font-family: "Fira Code", monospace !important;
+}
+
+
+/* ================================
+   HIDE CNF PANEL (User Request)
+   ================================ */
+
+#cnf-output {
+    display: none !important;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CFG Toolkit</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- D3 for tree visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- ========================= HEADER =========================== -->
+    <header class="py-12 px-4 bg-white border-b border-gray-200 shadow-sm">
+        <h1 class="text-5xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+            Context-Free Grammar Toolkit
+        </h1>
+        <p class="text-gray-600 text-center max-w-3xl mx-auto mt-4 text-lg">
+            Clean, interactive engine for grammar normalization, random generation,
+            and CYK parsing with full-tree visualization.
+        </p>
+    </header>
+
+    <!-- ========================= MAIN GRID =========================== -->
+    <main id="main-grid" class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 gap-10">
+
+        <!-- ========================= GRAMMAR SECTION =========================== -->
+        <section class="card">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6">1. Define Grammar</h2>
+
+            <label class="font-semibold text-gray-700">Start Variable</label>
+            <input id="start-variable-input"
+                   class="mt-1 w-32 bg-gray-100 p-2 rounded-lg"
+                   placeholder="S">
+
+            <!-- Production Rows -->
+            <div class="mt-6">
+                <label class="font-semibold text-gray-700">Production Rules</label>
+                <div id="productions-list" class="mt-3 space-y-3"></div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button id="add-production-btn" class="btn-glow">+ Add Rule</button>
+
+                <button id="autofill-btn"
+                    class="bg-gray-200 px-4 py-2 rounded-xl hover:bg-gray-300">
+                    Load Example
+                </button>
+            </div>
+
+            <button id="set-grammar-btn"
+                    class="btn-glow w-full mt-8 py-3 text-white text-lg">
+                Process Grammar
+            </button>
+
+            <div id="grammar-message" class="mt-4"></div>
+        </section>
+
+        <!-- Hidden CNF block -->
+        <section id="cnf-output" class="hidden"></section>
+
+        <!-- =========================== ANALYSIS SECTION =========================== -->
+        <section id="actions-section" class="card hidden">
+            <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">
+                2. CFG Tools
+            </h2>
+
+            <!-- Generator -->
+            <div class="card border-green-300 mt-4">
+                <h3 class="text-xl font-semibold text-green-600 mb-2">Stochastic Generator</h3>
+                <p class="text-sm text-gray-600 mb-3">Generate random valid strings.</p>
+
+                <button id="generate-btn"
+                        class="w-full py-3 bg-green-600 text-white rounded-xl hover:bg-green-700">
+                    Generate 10 Strings
+                </button>
+
+                <div id="generator-output" class="output-box mt-4"></div>
+            </div>
+
+            <!-- Validator -->
+            <div class="card border-purple-300 mt-6">
+                <h3 class="text-xl font-semibold text-purple-600 mb-2">CYK Validator</h3>
+                <p class="text-sm text-gray-600 mb-3">Validate & display full parse tree.</p>
+
+                <input id="validate-input"
+                       class="w-full bg-gray-100 p-2 rounded-lg mb-3"
+                       placeholder="Enter space-separated tokens...">
+
+                <button id="validate-btn"
+                        class="w-full py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700">
+                    Validate String
+                </button>
+
+                <div id="validator-output" class="output-box mt-4"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================= TREE MODAL =========================== -->
+    <div id="tree-modal"
+         class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+
+        <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] flex flex-col border">
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 class="text-xl font-bold text-blue-600">Parse Tree</h3>
+
+                <div class="flex gap-2">
+                    <button id="save-tree-btn" class="modal-btn">Save PNG</button>
+                    <button id="modal-close-btn" class="modal-btn">Close</button>
+                </div>
+            </div>
+
+            <div id="modal-svg-container" class="flex-grow overflow-auto bg-white"></div>
+        </div>
+    </div>
+
+    <!-- Template for production row -->
+    <template id="production-row-template">
+        <div class="production-row flex items-center gap-2">
+            <input class="lhs-input w-20 bg-gray-100 p-2 rounded-lg" placeholder="S">
+            <span class="font-bold text-gray-500 text-lg">→</span>
+            <input class="rhs-input flex-grow bg-gray-100 p-2 rounded-lg" placeholder="A B | a | ε">
+            <button class="delete-row-btn p-1 rounded-lg hover:bg-gray-200">
+                <svg width="20" height="20" fill="none" stroke="black" stroke-width="2">
+                    <line x1="4" y1="10" x2="16" y2="10"></line>
+                </svg>
+            </button>
+        </div>
+    </template>
+
+    <!-- Frontend JS Logic -->
+    <script src="/static/js/frontend.js"></script>
+</body>
+</html>
